@@ -1,0 +1,28 @@
+{
+  "name": "nuxtbnb",
+  "version": "0.0.1",
+  "description": "Nuxt Project for learning",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rivalcoba/NuxtBnB.git"
+  },
+  "keywords": [
+    "Nuxt"
+  ],
+  "author": "@Rivalcoba",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rivalcoba/NuxtBnB/issues"
+  },
+  "homepage": "https://github.com/rivalcoba/NuxtBnB#readme",
+  "dependencies": {
+    "nuxt": "^2.15.8"
+  }
+}
