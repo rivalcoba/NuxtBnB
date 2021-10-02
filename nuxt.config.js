@@ -14,5 +14,9 @@ export default {
         charset: 'utf-8',
       }
     ]
+  },
+  // Desabilita prefetch de rutas, es true por defecto
+  router: {
+    prefetchLinks: false,
   }
 };
