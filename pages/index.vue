@@ -5,7 +5,15 @@
       :key="home.objectID"
       style="float: left; margin: 10px"
     >
-      <home-card :home="home" />
+      <!-- 
+    Si agregamos a nuxt-link el atributo
+    no-prfetch no pre cargara la información
+    esto es recomendable hacerlo en caso de que
+    se tenga mucho trafico en la carga inicial de la pagina 
+    -->
+      <nuxt-link :to="`/home/${home.objectID}`">
+        <home-card :home="home" />
+      </nuxt-link>
     </div>
   </div>
 </template>
