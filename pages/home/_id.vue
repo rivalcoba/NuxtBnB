@@ -19,6 +19,8 @@
     {{ home.reviewValue }} <br />
     {{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }} beds,
     {{ home.bathrooms }} bathrooms <br />
+    {{ home.description }}
+    <div style="height:800px;width:800px;" ref="map"></div>
   </div>
 </template>
 
@@ -28,6 +30,14 @@ export default {
   head() {
     return {
       title: this.home.title,
+      script: [
+        {
+          src:
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyB65_DgG6iJsmhDOG4UkN1t3gfVErC7D5M&library=places',
+          hid: 'map',
+          defer: true,
+        },
+      ],
     };
   },
   data() {
@@ -35,9 +45,37 @@ export default {
       home: {},
     };
   },
+  // Isomorphics hook
   created() {
     const home = homes.find(home => home.objectID === this.$route.params.id);
     this.home = home;
+  },
+  // Front Side Hook
+  mounted() {
+    const mapOptions = {
+      zoom: 18,
+      center: new window.google.maps.LatLng(
+        this.home._geoloc.lat,
+        this.home._geoloc.lng
+      ),
+      disableDefaultUI:true,
+      zoomControl: true,
+    };
+    // Desestructurando la funcionalidad de mapas
+    const { maps } = window.google;
+    // Creando un mapa 
+    const map = new maps.Map(this.$refs.map, mapOptions);
+    // Creando una posición
+    const position = new maps.LatLng(
+      this.home._geoloc.lat,
+      this.home._geoloc.lng
+    );
+    // Creando un marcador
+    const marker = new maps.Marker({
+      position,
+    });
+    // Estableciendo el marcador en el mapa
+    marker.setMap(map);
   },
 };
 </script>
