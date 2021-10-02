@@ -26,6 +26,11 @@
 
 <script>
 import homes from '~/data/homes';
+if (process.client) {
+  window.initMap = function() {
+    console.log('test');
+  };
+}
 export default {
   head() {
     return {
@@ -33,11 +38,19 @@ export default {
       script: [
         {
           src:
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyB65_DgG6iJsmhDOG4UkN1t3gfVErC7D5M&library=places',
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyB65_DgG6iJsmhDOG4UkN1t3gfVErC7D5M&library=places&callback=initMap',
           hid: 'map',
-          defer: true,
+          defer: true, // Le indica al navegador que cargue los scripts hasta que termine de cargar el HTML
+          skip: process.client && window.mapLoaded,
+        },
+        {
+          innerHTML: 'window.initMap = function(){ window.mapLoaded = true }',
+          hid: 'map-init',
         },
       ],
+      // __dangerouslyDisableSanitizersByTagID: {
+      //   'map-init': ['innerHTML'],
+      // },
     };
   },
   data() {
@@ -58,20 +71,20 @@ export default {
         this.home._geoloc.lat,
         this.home._geoloc.lng
       ),
-      disableDefaultUI:true,
+      disableDefaultUI: true,
       zoomControl: true,
     };
     // Desestructurando la funcionalidad de mapas
-    const { maps } = window.google;
-    // Creando un mapa 
-    const map = new maps.Map(this.$refs.map, mapOptions);
+    // const { maps } = window.google;
+    // Creando un mapa
+    const map = new window.google.maps.Map(this.$refs.map, mapOptions);
     // Creando una posición
-    const position = new maps.LatLng(
+    const position = new window.google.maps.LatLng(
       this.home._geoloc.lat,
       this.home._geoloc.lng
     );
     // Creando un marcador
-    const marker = new maps.Marker({
+    const marker = new window.google.maps.Marker({
       position,
     });
     // Estableciendo el marcador en el mapa
