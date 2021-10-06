@@ -38,7 +38,7 @@ export default {
       script: [
         {
           src:
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyB65_DgG6iJsmhDOG4UkN1t3gfVErC7D5M&library=places&callback=initMap',
+            `https://maps.googleapis.com/maps/api/js?key=${process.env.googleApiKey}&library=places&callback=initMap`,
           hid: 'map',
           async: true, // Le indica al navegador que cargue los scripts hasta que termine de cargar el HTML
           skip: process.client && window.mapLoaded,

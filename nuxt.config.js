@@ -18,5 +18,8 @@ export default {
   // Desabilita prefetch de rutas, es true por defecto
   router: {
     prefetchLinks: false,
+  },
+  env: {
+    googleApiKey: process.env.GOOGLE_API_KEY
   }
 };
